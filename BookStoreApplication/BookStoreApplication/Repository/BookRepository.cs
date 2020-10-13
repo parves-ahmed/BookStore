@@ -24,9 +24,9 @@ namespace BookStoreApplication.Repository
         {
             return new List<BookModel>()
             {
-                new BookModel(){Id=1, Title="Design API", Author="Jr"},
-                new BookModel(){Id=2, Title="Design & Architecture", Author="Jr"},
-                new BookModel(){Id=3, Title="OOP", Author="Swift"},
+                new BookModel(){Id=1, Title="Design API", Author="Jr", Description="This book is about Designing API from scratch to advanced", Category="API", Language="English", Pages=317},
+                new BookModel(){Id=2, Title="Design & Architecture", Author="Jr",Description="This book is about Designing & Architecture from scratch to advanced", Category="Architecture", Language="Spanish", Pages=1017},
+                new BookModel(){Id=3, Title="OOP", Author="Swift",Description="This book is about Designing OOP from scratch to advanced", Category="OOP", Language="Bangla", Pages=834},
             };
         }
     }
