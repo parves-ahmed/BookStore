@@ -24,6 +24,7 @@ namespace BookStoreApplication.Repository
                 Description = model.Description,
                 Title = model.Title,
                 Pages = model.Pages.HasValue ? model.Pages.Value : 0,
+                LanguageId = model.LanguageId,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow
             };
@@ -35,32 +36,8 @@ namespace BookStoreApplication.Repository
         }
         public async Task<List<BookModel>> GetAllBooks() 
         {
-            var books = new List<BookModel>();
-            var allBooks = await _context.Books.ToListAsync();
-            if(allBooks?.Any() == true)
-            {
-                foreach (var book in allBooks)
-                {
-                    books.Add(new BookModel()
-                    {
-                        Author = book.Author,
-                        Title = book.Title,
-                        Description = book.Description,
-                        Pages = book.Pages,
-                        Id = book.Id,
-                        Category = book.Category,
-                        Language = book.Language
-                    });
-                }
-            }
-            return books;
-        }
-        public async Task<BookModel> GetBookById(int id)
-        {
-            var book = await _context.Books.FindAsync(id);
-            if(book != null)
-            {
-                var bookDetails = new BookModel()
+            return await _context.Books
+                .Select(book => new BookModel()
                 {
                     Author = book.Author,
                     Title = book.Title,
@@ -68,24 +45,28 @@ namespace BookStoreApplication.Repository
                     Pages = book.Pages,
                     Id = book.Id,
                     Category = book.Category,
-                    Language = book.Language
-                };
-                return bookDetails;
-            }
-            return null;
+                    Language = book.Language.Name,
+                   
+                }).ToListAsync();
+        }
+        public async Task<BookModel> GetBookById(int id)
+        {
+            return await _context.Books.Where(x => x.Id == id)
+                .Select(book => new BookModel()
+                {
+                Author = book.Author,
+                    Title = book.Title,
+                    Description = book.Description,
+                    Pages = book.Pages,
+                    Id = book.Id,
+                    Category = book.Category,
+                    Language = book.Language.Name,
+                   
+            }).FirstOrDefaultAsync();
         }
         public List<BookModel> SearchBook(string title, string authorName)
         {
-            return DataSource().Where(x => x.Title.Contains(title) || x.Author.Contains(authorName)).ToList();
-        }
-        private List<BookModel> DataSource()
-        {
-            return new List<BookModel>()
-            {
-                new BookModel(){Id=1, Title="Design API", Author="Jr", Description="This book is about Designing API from scratch to advanced", Category="API", Language="English", Pages=317},
-                new BookModel(){Id=2, Title="Design & Architecture", Author="Jr",Description="This book is about Designing & Architecture from scratch to advanced", Category="Architecture", Language="Spanish", Pages=1017},
-                new BookModel(){Id=3, Title="OOP", Author="Swift",Description="This book is about Designing OOP from scratch to advanced", Category="OOP", Language="Bangla", Pages=834},
-            };
+            return null;
         }
     }
 }
