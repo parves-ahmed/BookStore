@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -28,5 +29,6 @@ namespace BookStoreApplication.Models
         [Required(ErrorMessage = "Please provide page number")]
         [Display(Name = "Total Number of Pages")]
         public int? Pages { get; set; }
+        public IFormFile CoverPhoto { get; set; }
     }
 }
