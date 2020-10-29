@@ -18,5 +18,7 @@ namespace BookStoreApplication.Data
         public DateTime? UpdatedOn { get; set; }
         public Language Language { get; set; }
         public string CoverImageUrl { get; set; }
+        public ICollection<BookGallery> bookGallery { get; set; }
+        public string BookPdfUrl { get; set; }
     }
 }

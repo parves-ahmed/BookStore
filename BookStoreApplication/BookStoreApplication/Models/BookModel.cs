@@ -30,5 +30,10 @@ namespace BookStoreApplication.Models
         [Display(Name = "Total Number of Pages")]
         public int? Pages { get; set; }
         public IFormFile CoverPhoto { get; set; }
+        public string CoverImageUrl { get; set; }
+        public IFormFileCollection GalleryFiles { get; set; }
+        public List<GalleryModel> Gallery { get; set; }
+        public IFormFile BookPdf { get; set; }
+        public string BookPdfUrl { get; set; }
     }
 }
